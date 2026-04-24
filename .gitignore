@@ -1,0 +1,10 @@
+# Секреты
+config.js
+
+# macOS
+.DS_Store
+
+# IDE
+.idea/
+.vscode/
+*.swp

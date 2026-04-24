@@ -1,0 +1,1308 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Radjabov Detailing — Премиум детейлинг в Астане | Рейтинг 5.0</title>
+    <meta name="description" content="Radjabov Detailing — студия премиум-детейлинга №1 в Астане. Керамика, PPF, полировка, химчистка. Рейтинг 5.0 ★ 284 отзыва. 3 филиала. Запишитесь на бесплатный осмотр.">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-red': '#E5142E',
+                        'brand-red-dark': '#B8102A',
+                        'brand-red-glow': '#FF1A33',
+                        'dark-900': '#0A0A0A',
+                        'dark-800': '#111111',
+                        'dark-700': '#1A1A1A',
+                        'dark-600': '#222222',
+                        'dark-500': '#2A2A2A',
+                        'dark-400': '#333333',
+                        'dark-300': '#555555',
+                    },
+                    fontFamily: {
+                        'display': ['Outfit', 'sans-serif'],
+                        'body': ['Inter', 'sans-serif'],
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-glow': 'pulseGlow 2s ease-in-out infinite',
+                        'slide-up': 'slideUp 0.8s ease-out forwards',
+                        'slide-in-right': 'slideInRight 0.6s ease-out forwards',
+                        'fade-in': 'fadeIn 1s ease-out forwards',
+                        'counter': 'counter 2s ease-out forwards',
+                        'shimmer': 'shimmer 3s linear infinite',
+                    },
+                    keyframes: {
+                        float: { '0%, 100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-10px)' } },
+                        pulseGlow: { '0%, 100%': { boxShadow: '0 0 20px rgba(229, 20, 46, 0.3)' }, '50%': { boxShadow: '0 0 40px rgba(229, 20, 46, 0.6)' } },
+                        slideUp: { '0%': { opacity: '0', transform: 'translateY(40px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } },
+                        slideInRight: { '0%': { opacity: '0', transform: 'translateX(-30px)' }, '100%': { opacity: '1', transform: 'translateX(0)' } },
+                        fadeIn: { '0%': { opacity: '0' }, '100%': { opacity: '1' } },
+                        shimmer: { '0%': { backgroundPosition: '-200% 0' }, '100%': { backgroundPosition: '200% 0' } },
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0A0A0A;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #0A0A0A; }
+        ::-webkit-scrollbar-thumb { background: #E5142E; border-radius: 3px; }
+
+        /* Hero parallax */
+        .hero-bg {
+            background-image: linear-gradient(180deg, rgba(10,10,10,0.3) 0%, rgba(10,10,10,0.7) 50%, rgba(10,10,10,1) 100%), url('images/hero-car.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        @media (max-width: 768px) {
+            .hero-bg { background-attachment: scroll; }
+        }
+
+        /* Red line separator */
+        .red-line {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #E5142E, transparent);
+        }
+
+        /* Glass card */
+        .glass-card {
+            background: rgba(26, 26, 26, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(229, 20, 46, 0.1);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-card:hover {
+            border-color: rgba(229, 20, 46, 0.5);
+            background: rgba(26, 26, 26, 0.9);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(229, 20, 46, 0.15);
+        }
+
+        /* Service card image hover */
+        .service-img-wrapper {
+            overflow: hidden;
+            position: relative;
+        }
+        .service-img-wrapper img {
+            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .glass-card:hover .service-img-wrapper img {
+            transform: scale(1.1);
+        }
+        .service-img-wrapper::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 50%, rgba(10,10,10,0.9) 100%);
+        }
+
+        /* Rating star pulse */
+        .star-rating { color: #E5142E; text-shadow: 0 0 15px rgba(229, 20, 46, 0.5); }
+
+        /* Animated counter */
+        .counter-value {
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* Form glow */
+        .form-glow {
+            box-shadow: 0 0 80px rgba(229, 20, 46, 0.1), inset 0 1px 0 rgba(229, 20, 46, 0.1);
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #E5142E !important;
+            box-shadow: 0 0 0 3px rgba(229, 20, 46, 0.15);
+        }
+
+        /* Toast */
+        .toast {
+            transform: translateX(120%);
+            transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .toast.show { transform: translateX(0); }
+
+        /* CTA pulse */
+        .cta-btn {
+            position: relative;
+            overflow: hidden;
+        }
+        .cta-btn::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+            transition: left 0.5s;
+        }
+        .cta-btn:hover::before { left: 100%; }
+
+        /* Floating nav */
+        .nav-scrolled {
+            background: rgba(10, 10, 10, 0.95) !important;
+            backdrop-filter: blur(20px) !important;
+            border-bottom: 1px solid rgba(229, 20, 46, 0.2) !important;
+        }
+
+        /* Intersection observer reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Map card hover */
+        .branch-card {
+            transition: all 0.4s ease;
+        }
+        .branch-card:hover {
+            background: rgba(229, 20, 46, 0.08);
+            border-color: rgba(229, 20, 46, 0.4);
+        }
+        .branch-card:hover .branch-icon {
+            color: #E5142E;
+            transform: scale(1.15);
+        }
+        .branch-icon {
+            transition: all 0.4s ease;
+        }
+
+        /* Shimmer text */
+        .shimmer-text {
+            background: linear-gradient(90deg, #E5142E 0%, #FF6B7A 25%, #E5142E 50%, #FF6B7A 75%, #E5142E 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 3s linear infinite;
+        }
+
+        /* Social button glow */
+        .social-btn {
+            transition: all 0.3s ease;
+        }
+        .social-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(229, 20, 46, 0.3);
+        }
+
+        /* Marquee animation for partners */
+        .marquee-track {
+            display: flex;
+            width: max-content;
+            animation: marquee 30s linear infinite;
+        }
+        .marquee-track:hover { animation-play-state: paused; }
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .partner-logo {
+            opacity: 0.4;
+            filter: grayscale(100%) brightness(1.8);
+            transition: all 0.4s ease;
+        }
+        .partner-logo:hover {
+            opacity: 0.8;
+            filter: grayscale(0%) brightness(1);
+        }
+
+        /* Before/After slider */
+        .compare-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 1rem;
+            aspect-ratio: 16 / 9;
+            max-width: 800px;
+            margin: 0 auto;
+            cursor: col-resize;
+        }
+        .compare-container img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        .compare-after {
+            clip-path: inset(0 0 0 50%);
+            z-index: 2;
+        }
+        .compare-before { z-index: 1; }
+        .compare-slider {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 3px;
+            height: 100%;
+            background: #E5142E;
+            z-index: 4;
+            pointer-events: none;
+            box-shadow: 0 0 15px rgba(229, 20, 46, 0.5);
+        }
+        .compare-handle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 44px;
+            height: 44px;
+            background: #E5142E;
+            border-radius: 50%;
+            z-index: 5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+            box-shadow: 0 0 20px rgba(229, 20, 46, 0.4);
+        }
+        .compare-range {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 6;
+            opacity: 0;
+            cursor: col-resize;
+            -webkit-appearance: none;
+            appearance: none;
+            margin: 0;
+        }
+        .compare-label {
+            position: absolute;
+            bottom: 16px;
+            z-index: 3;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(8px);
+            padding: 6px 16px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        .compare-label-before { left: 16px; color: #999; }
+        .compare-label-after { right: 16px; color: #E5142E; }
+
+        /* Noise texture overlay */
+        .noise-overlay {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.015;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+    </style>
+</head>
+<body>
+
+<!-- Noise overlay -->
+<div class="noise-overlay"></div>
+
+<!-- Toast Notification -->
+<div id="toast" class="toast fixed top-6 right-6 z-[100] max-w-sm">
+    <div class="bg-dark-700 border border-brand-red/30 rounded-2xl p-5 shadow-2xl flex items-start gap-4">
+        <div class="w-10 h-10 rounded-full bg-brand-red/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+            <i class="fa-solid fa-check text-brand-red"></i>
+        </div>
+        <div>
+            <p class="font-display font-bold text-white text-sm">Заявка принята!</p>
+            <p class="text-gray-400 text-xs mt-1">Мы свяжемся с вами в течение 15 минут</p>
+        </div>
+        <button onclick="hideToast()" class="text-gray-500 hover:text-white transition ml-2 mt-0.5">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+    </div>
+</div>
+
+<!-- ==================== HEADER ==================== -->
+<header id="navbar" class="fixed top-0 left-0 w-full z-50 transition-all duration-500 bg-transparent border-b border-transparent">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16 md:h-20">
+            <!-- Logo -->
+            <a href="#" class="flex items-center gap-2 group">
+                <div class="w-8 h-8 md:w-10 md:h-10 bg-brand-red rounded-lg flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-300">
+                    <span class="font-display font-black text-white text-sm md:text-base">R</span>
+                </div>
+                <div class="hidden sm:block">
+                    <span class="font-display font-bold text-white text-base md:text-lg tracking-wide">RADJABOV</span>
+                    <span class="font-display font-light text-gray-400 text-base md:text-lg tracking-widest ml-1">DETAILING</span>
+                </div>
+            </a>
+
+            <!-- Desktop Nav -->
+            <nav class="hidden md:flex items-center gap-8">
+                <a href="#services" class="text-sm text-gray-300 hover:text-brand-red transition-colors duration-300 font-medium tracking-wide uppercase">Услуги</a>
+                <a href="#reviews" class="text-sm text-gray-300 hover:text-brand-red transition-colors duration-300 font-medium tracking-wide uppercase">Отзывы</a>
+                <a href="#contacts" class="text-sm text-gray-300 hover:text-brand-red transition-colors duration-300 font-medium tracking-wide uppercase">Контакты</a>
+                <a href="#booking-form" class="cta-btn bg-brand-red hover:bg-brand-red-dark text-white text-sm font-semibold px-6 py-2.5 rounded-full transition-all duration-300 animate-pulse-glow">
+                    Оставить заявку
+                </a>
+            </nav>
+
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-btn" class="md:hidden text-white text-xl p-2" aria-label="Открыть меню">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Mobile Nav -->
+    <div id="mobile-menu" class="md:hidden hidden bg-dark-900/98 backdrop-blur-xl border-t border-dark-600">
+        <div class="px-6 py-6 space-y-4">
+            <a href="#services" class="block text-gray-300 hover:text-brand-red transition font-medium py-2 mobile-link">Услуги</a>
+            <a href="#reviews" class="block text-gray-300 hover:text-brand-red transition font-medium py-2 mobile-link">Отзывы</a>
+            <a href="#contacts" class="block text-gray-300 hover:text-brand-red transition font-medium py-2 mobile-link">Контакты</a>
+            <a href="#booking-form" class="cta-btn block text-center bg-brand-red hover:bg-brand-red-dark text-white font-semibold px-6 py-3 rounded-full transition-all mt-4 mobile-link">
+                Оставить заявку
+            </a>
+        </div>
+    </div>
+</header>
+
+
+<!-- ==================== HERO SECTION ==================== -->
+<section class="hero-bg relative min-h-screen flex items-center justify-center">
+    <!-- Red accent lines -->
+    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-brand-red to-transparent opacity-60"></div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 md:py-40 text-center">
+        <!-- Badge -->
+        <div class="inline-flex items-center gap-2 bg-dark-700/60 backdrop-blur-md border border-dark-500 rounded-full px-5 py-2 mb-8 animate-fade-in">
+            <div class="flex gap-0.5">
+                <i class="fa-solid fa-star text-brand-red text-xs"></i>
+                <i class="fa-solid fa-star text-brand-red text-xs"></i>
+                <i class="fa-solid fa-star text-brand-red text-xs"></i>
+                <i class="fa-solid fa-star text-brand-red text-xs"></i>
+                <i class="fa-solid fa-star text-brand-red text-xs"></i>
+            </div>
+            <span class="text-gray-300 text-xs font-medium">5.0 — 284 отзыва на 2GIS</span>
+        </div>
+
+        <!-- Main heading -->
+        <h1 class="font-display font-black text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-tight mb-6 animate-slide-up">
+            Безупречный вид<br>
+            <span class="shimmer-text">вашего авто.</span><br>
+            <span class="text-gray-500">Без компромиссов.</span>
+        </h1>
+
+        <p class="text-gray-400 text-base sm:text-lg md:text-xl max-w-2xl mx-auto mb-10 font-light leading-relaxed animate-fade-in" style="animation-delay: 0.3s;">
+            Премиум-детейлинг в Астане. Защитим, восстановим и преобразим ваш автомобиль с гарантией результата.
+        </p>
+
+        <!-- CTA buttons -->
+        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in" style="animation-delay: 0.6s;">
+            <a href="#booking-form" class="cta-btn group bg-brand-red hover:bg-brand-red-dark text-white font-display font-bold text-base px-10 py-4 rounded-full transition-all duration-300 shadow-lg shadow-brand-red/25 hover:shadow-brand-red/40 flex items-center gap-3">
+                <span>Записаться</span>
+                <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+            </a>
+            <a href="https://tiktok.com/@radjabov.detailing" target="_blank" class="group bg-dark-700/60 backdrop-blur-md hover:bg-dark-600 text-white font-display font-semibold text-base px-8 py-4 rounded-full border border-dark-500 hover:border-brand-red/30 transition-all duration-300 flex items-center gap-3">
+                <i class="fa-brands fa-tiktok text-lg group-hover:text-brand-red transition-colors"></i>
+                <span>Наш TikTok</span>
+            </a>
+        </div>
+
+        <!-- Scroll indicator -->
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-float">
+            <div class="w-6 h-10 rounded-full border-2 border-gray-600 flex justify-center pt-2">
+                <div class="w-1 h-2 bg-brand-red rounded-full animate-bounce"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ==================== SERVICES ==================== -->
+<section id="services" class="relative py-20 md:py-32 bg-dark-900">
+    <div class="red-line mb-20"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Section header -->
+        <div class="text-center mb-16 reveal">
+            <span class="text-brand-red font-display font-semibold text-sm tracking-[0.3em] uppercase mb-4 block">Наши услуги</span>
+            <h2 class="font-display font-black text-3xl sm:text-4xl md:text-5xl text-white mb-4">
+                Полный спектр <span class="shimmer-text">детейлинга</span>
+            </h2>
+            <p class="text-gray-500 text-base md:text-lg max-w-xl mx-auto font-light">
+                Каждая услуга — это не просто процедура, а комплексный подход к защите и преображению вашего авто.
+            </p>
+        </div>
+
+        <!-- Service grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+            <!-- Card 1: Ceramic -->
+            <a href="service.html?id=ceramic" class="glass-card rounded-2xl overflow-hidden group reveal block" style="transition-delay: 0.1s;">
+                <div class="service-img-wrapper h-48 relative">
+                    <img src="images/ceramic-coating.png" alt="Керамическое покрытие" class="w-full h-full object-cover">
+                    <div class="absolute top-4 right-4 z-10 bg-brand-red/90 backdrop-blur-sm text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full">
+                        Хит
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="w-12 h-12 rounded-xl bg-brand-red/10 flex items-center justify-center mb-4 group-hover:bg-brand-red/20 transition-colors">
+                        <i class="fa-solid fa-shield-halved text-brand-red text-xl"></i>
+                    </div>
+                    <h3 class="font-display font-bold text-lg text-white mb-2">Керамическое покрытие</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">
+                        9H керамика с гарантией до 5 лет. Гидрофобный эффект, защита от УФ, блеск нового авто.
+                    </p>
+                    <div class="mt-4 pt-4 border-t border-dark-500 flex items-center justify-between">
+                        <span class="text-brand-red font-display font-bold text-sm">от 150 000 ₸</span>
+                        <i class="fa-solid fa-arrow-right text-gray-600 group-hover:text-brand-red group-hover:translate-x-1 transition-all text-sm"></i>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Card 2: PPF -->
+            <a href="service.html?id=ppf" class="glass-card rounded-2xl overflow-hidden group reveal block" style="transition-delay: 0.2s;">
+                <div class="service-img-wrapper h-48 relative">
+                    <img src="images/ppf-service.png" alt="Оклейка пленкой PPF" class="w-full h-full object-cover">
+                    <div class="absolute top-4 right-4 z-10 bg-white/10 backdrop-blur-sm text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full">
+                        Премиум
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="w-12 h-12 rounded-xl bg-brand-red/10 flex items-center justify-center mb-4 group-hover:bg-brand-red/20 transition-colors">
+                        <i class="fa-solid fa-layer-group text-brand-red text-xl"></i>
+                    </div>
+                    <h3 class="font-display font-bold text-lg text-white mb-2">Оклейка PPF-плёнкой</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">
+                        Полиуретановая плёнка STEK/3M. Невидимая броня от сколов, царапин и реагентов.
+                    </p>
+                    <div class="mt-4 pt-4 border-t border-dark-500 flex items-center justify-between">
+                        <span class="text-brand-red font-display font-bold text-sm">от 350 000 ₸</span>
+                        <i class="fa-solid fa-arrow-right text-gray-600 group-hover:text-brand-red group-hover:translate-x-1 transition-all text-sm"></i>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Card 3: Chemical cleaning -->
+            <a href="service.html?id=cleaning" class="glass-card rounded-2xl overflow-hidden group reveal block" style="transition-delay: 0.3s;">
+                <div class="service-img-wrapper h-48 relative bg-dark-600">
+                    <div class="absolute inset-0 flex items-center justify-center z-10">
+                        <i class="fa-solid fa-spray-can-sparkles text-brand-red/30 text-7xl"></i>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="w-12 h-12 rounded-xl bg-brand-red/10 flex items-center justify-center mb-4 group-hover:bg-brand-red/20 transition-colors">
+                        <i class="fa-solid fa-spray-can-sparkles text-brand-red text-xl"></i>
+                    </div>
+                    <h3 class="font-display font-bold text-lg text-white mb-2">Премиум-химчистка</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">
+                        Глубокая чистка салона с обработкой паром. Кожа, алькантара, потолок — как из салона.
+                    </p>
+                    <div class="mt-4 pt-4 border-t border-dark-500 flex items-center justify-between">
+                        <span class="text-brand-red font-display font-bold text-sm">от 45 000 ₸</span>
+                        <i class="fa-solid fa-arrow-right text-gray-600 group-hover:text-brand-red group-hover:translate-x-1 transition-all text-sm"></i>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Card 4: Polishing -->
+            <a href="service.html?id=polish" class="glass-card rounded-2xl overflow-hidden group reveal block" style="transition-delay: 0.4s;">
+                <div class="service-img-wrapper h-48 relative bg-dark-600">
+                    <div class="absolute inset-0 flex items-center justify-center z-10">
+                        <i class="fa-solid fa-wand-magic-sparkles text-brand-red/30 text-7xl"></i>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="w-12 h-12 rounded-xl bg-brand-red/10 flex items-center justify-center mb-4 group-hover:bg-brand-red/20 transition-colors">
+                        <i class="fa-solid fa-wand-magic-sparkles text-brand-red text-xl"></i>
+                    </div>
+                    <h3 class="font-display font-bold text-lg text-white mb-2">Полировка кузова</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">
+                        Абразивная и финишная полировка. Убираем голограммы, паутинку и мелкие царапины.
+                    </p>
+                    <div class="mt-4 pt-4 border-t border-dark-500 flex items-center justify-between">
+                        <span class="text-brand-red font-display font-bold text-sm">от 80 000 ₸</span>
+                        <i class="fa-solid fa-arrow-right text-gray-600 group-hover:text-brand-red group-hover:translate-x-1 transition-all text-sm"></i>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+
+
+<!-- ==================== PARTNERS MARQUEE ==================== -->
+<section class="relative py-16 bg-dark-800 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-10">
+        <div class="text-center reveal">
+            <span class="text-brand-red font-display font-semibold text-sm tracking-[0.3em] uppercase mb-4 block">Партнёры</span>
+            <h2 class="font-display font-black text-3xl sm:text-4xl md:text-5xl text-white">
+                Работаем с <span class="shimmer-text">лучшими</span>
+            </h2>
+        </div>
+    </div>
+    <div class="relative">
+        <div class="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-dark-800 to-transparent z-10 pointer-events-none"></div>
+        <div class="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-dark-800 to-transparent z-10 pointer-events-none"></div>
+        <div class="marquee-track">
+            <div class="flex items-center gap-16 px-8">
+                <span class="partner-logo font-display font-bold text-2xl md:text-3xl text-white whitespace-nowrap tracking-wide">Koch Chemie</span>
+                <span class="partner-logo font-display font-bold text-2xl md:text-3xl text-white whitespace-nowrap tracking-wide">Llumar</span>
+                <span class="partner-logo font-display font-bold text-2xl md:text-3xl text-white whitespace-nowrap tracking-wide">SunTek</span>
+                <span class="partner-logo font-display font-bold text-2xl md:text-3xl text-white whitespace-nowrap tracking-wide">Gtechniq</span>
+                <span class="partner-logo font-display font-bold text-2xl md:text-3xl text-white whitespace-nowrap tracking-wide">Meguiar's</span>
+                <span class="partner-logo font-display font-bold text-2xl md:text-3xl text-white whitespace-nowrap tracking-wide">STEK</span>
+                <span class="partner-logo font-display font-bold text-2xl md:text-3xl text-white whitespace-nowrap tracking-wide">3M</span>
+                <span class="partner-logo font-display font-bold text-2xl md:text-3xl text-white whitespace-nowrap tracking-wide">Gyeon</span>
+            </div>
+            <div class="flex items-center gap-16 px-8" aria-hidden="true">
+                <span class="partner-logo font-display font-bold text-2xl md:text-3xl text-white whitespace-nowrap tracking-wide">Koch Chemie</span>
+                <span class="partner-logo font-display font-bold text-2xl md:text-3xl text-white whitespace-nowrap tracking-wide">Llumar</span>
+                <span class="partner-logo font-display font-bold text-2xl md:text-3xl text-white whitespace-nowrap tracking-wide">SunTek</span>
+                <span class="partner-logo font-display font-bold text-2xl md:text-3xl text-white whitespace-nowrap tracking-wide">Gtechniq</span>
+                <span class="partner-logo font-display font-bold text-2xl md:text-3xl text-white whitespace-nowrap tracking-wide">Meguiar's</span>
+                <span class="partner-logo font-display font-bold text-2xl md:text-3xl text-white whitespace-nowrap tracking-wide">STEK</span>
+                <span class="partner-logo font-display font-bold text-2xl md:text-3xl text-white whitespace-nowrap tracking-wide">3M</span>
+                <span class="partner-logo font-display font-bold text-2xl md:text-3xl text-white whitespace-nowrap tracking-wide">Gyeon</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ==================== BEFORE / AFTER ==================== -->
+<section id="before-after" class="relative py-20 md:py-32 bg-dark-900">
+    <div class="red-line mb-20"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16 reveal">
+            <span class="text-brand-red font-display font-semibold text-sm tracking-[0.3em] uppercase mb-4 block">Результат</span>
+            <h2 class="font-display font-black text-3xl sm:text-4xl md:text-5xl text-white mb-4">
+                До и <span class="shimmer-text">после</span>
+            </h2>
+            <p class="text-gray-500 text-base md:text-lg max-w-xl mx-auto font-light">
+                Перетяните ползунок, чтобы увидеть разницу. Результат говорит сам за себя.
+            </p>
+        </div>
+
+        <div class="compare-container reveal" id="compare-slider">
+            <img src="images/car-before.png" alt="До детейлинга" class="compare-before">
+            <img src="images/car-after.png" alt="После детейлинга" class="compare-after" id="compare-after-img">
+            <div class="compare-slider" id="compare-line"></div>
+            <div class="compare-handle" id="compare-handle">
+                <i class="fa-solid fa-arrows-left-right text-white text-sm"></i>
+            </div>
+            <input type="range" min="0" max="100" value="50" class="compare-range" id="compare-input" aria-label="Сравнение до и после">
+            <span class="compare-label compare-label-before">До</span>
+            <span class="compare-label compare-label-after">После</span>
+        </div>
+    </div>
+</section>
+
+
+<!-- ==================== SOCIAL PROOF / STATS ==================== -->
+<section id="reviews" class="relative py-20 md:py-32 bg-dark-800 overflow-hidden">
+    <!-- Background accent -->
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-brand-red/5 rounded-full blur-[120px] pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="text-center mb-16 reveal">
+            <span class="text-brand-red font-display font-semibold text-sm tracking-[0.3em] uppercase mb-4 block">Доверие</span>
+            <h2 class="font-display font-black text-3xl sm:text-4xl md:text-5xl text-white">
+                Цифры говорят <span class="shimmer-text">за нас</span>
+            </h2>
+        </div>
+
+        <!-- Stats grid -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 mb-16 reveal">
+            <!-- Rating -->
+            <div class="glass-card rounded-2xl p-6 md:p-8 text-center">
+                <div class="star-rating text-3xl md:text-4xl mb-2">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                </div>
+                <div class="font-display font-black text-5xl md:text-6xl text-white counter-value" data-target="5.0">5.0</div>
+                <p class="text-gray-500 text-sm mt-2 font-medium">Рейтинг на 2GIS</p>
+            </div>
+
+            <!-- Reviews -->
+            <div class="glass-card rounded-2xl p-6 md:p-8 text-center">
+                <div class="w-14 h-14 rounded-full bg-brand-red/10 flex items-center justify-center mx-auto mb-3">
+                    <i class="fa-solid fa-comments text-brand-red text-2xl"></i>
+                </div>
+                <div class="font-display font-black text-5xl md:text-6xl text-white counter-value" data-target="284">0</div>
+                <p class="text-gray-500 text-sm mt-2 font-medium">Отзывов клиентов</p>
+            </div>
+
+            <!-- Cars -->
+            <div class="glass-card rounded-2xl p-6 md:p-8 text-center">
+                <div class="w-14 h-14 rounded-full bg-brand-red/10 flex items-center justify-center mx-auto mb-3">
+                    <i class="fa-solid fa-car text-brand-red text-2xl"></i>
+                </div>
+                <div class="font-display font-black text-5xl md:text-6xl text-white counter-value" data-target="2500">0</div>
+                <p class="text-gray-500 text-sm mt-2 font-medium">Обработанных авто</p>
+            </div>
+
+            <!-- Branches -->
+            <div class="glass-card rounded-2xl p-6 md:p-8 text-center">
+                <div class="w-14 h-14 rounded-full bg-brand-red/10 flex items-center justify-center mx-auto mb-3">
+                    <i class="fa-solid fa-location-dot text-brand-red text-2xl"></i>
+                </div>
+                <div class="font-display font-black text-5xl md:text-6xl text-white counter-value" data-target="3">0</div>
+                <p class="text-gray-500 text-sm mt-2 font-medium">Филиала в Астане</p>
+            </div>
+        </div>
+
+        <!-- Testimonial quotes -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 reveal">
+            <div class="glass-card rounded-2xl p-6">
+                <div class="flex gap-1 mb-3">
+                    <i class="fa-solid fa-star text-brand-red text-sm"></i>
+                    <i class="fa-solid fa-star text-brand-red text-sm"></i>
+                    <i class="fa-solid fa-star text-brand-red text-sm"></i>
+                    <i class="fa-solid fa-star text-brand-red text-sm"></i>
+                    <i class="fa-solid fa-star text-brand-red text-sm"></i>
+                </div>
+                <p class="text-gray-300 text-sm leading-relaxed mb-4 italic">
+                    «Отдал свой GLE на полную оклейку PPF. Результат превзошёл ожидания — плёнка невидимая, машина блестит как новая. Рекомендую!»
+                </p>
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-full bg-brand-red/20 flex items-center justify-center">
+                        <span class="font-display font-bold text-brand-red text-sm">А</span>
+                    </div>
+                    <div>
+                        <p class="text-white text-sm font-medium">Арман К.</p>
+                        <p class="text-gray-600 text-xs">Mercedes GLE</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-card rounded-2xl p-6">
+                <div class="flex gap-1 mb-3">
+                    <i class="fa-solid fa-star text-brand-red text-sm"></i>
+                    <i class="fa-solid fa-star text-brand-red text-sm"></i>
+                    <i class="fa-solid fa-star text-brand-red text-sm"></i>
+                    <i class="fa-solid fa-star text-brand-red text-sm"></i>
+                    <i class="fa-solid fa-star text-brand-red text-sm"></i>
+                </div>
+                <p class="text-gray-300 text-sm leading-relaxed mb-4 italic">
+                    «Делали керамику 9H. Через 3 месяца эксплуатации зимой — ни одной царапины. Вода скатывается моментально. Мастера — профессионалы!»
+                </p>
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-full bg-brand-red/20 flex items-center justify-center">
+                        <span class="font-display font-bold text-brand-red text-sm">Д</span>
+                    </div>
+                    <div>
+                        <p class="text-white text-sm font-medium">Данияр М.</p>
+                        <p class="text-gray-600 text-xs">BMW X5</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-card rounded-2xl p-6">
+                <div class="flex gap-1 mb-3">
+                    <i class="fa-solid fa-star text-brand-red text-sm"></i>
+                    <i class="fa-solid fa-star text-brand-red text-sm"></i>
+                    <i class="fa-solid fa-star text-brand-red text-sm"></i>
+                    <i class="fa-solid fa-star text-brand-red text-sm"></i>
+                    <i class="fa-solid fa-star text-brand-red text-sm"></i>
+                </div>
+                <p class="text-gray-300 text-sm leading-relaxed mb-4 italic">
+                    «Химчистка салона на высшем уровне. Кожа стала как новая, убрали все пятна. Приятно садиться в машину. Теперь только к вам!»
+                </p>
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-full bg-brand-red/20 flex items-center justify-center">
+                        <span class="font-display font-bold text-brand-red text-sm">А</span>
+                    </div>
+                    <div>
+                        <p class="text-white text-sm font-medium">Айгуль Т.</p>
+                        <p class="text-gray-600 text-xs">Lexus RX 350</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ==================== BOOKING FORM ==================== -->
+<section id="booking" class="relative py-20 md:py-32 bg-dark-900">
+    <div class="red-line mb-20"></div>
+
+    <!-- Background glow -->
+    <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-brand-red/5 rounded-full blur-[150px] pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+
+            <!-- Left: Text -->
+            <div class="reveal">
+                <span class="text-brand-red font-display font-semibold text-sm tracking-[0.3em] uppercase mb-4 block">Запись</span>
+                <h2 class="font-display font-black text-3xl sm:text-4xl md:text-5xl text-white mb-6 leading-tight">
+                    Запишитесь на<br>
+                    <span class="shimmer-text">бесплатный осмотр</span>
+                </h2>
+                <p class="text-gray-400 text-base md:text-lg leading-relaxed mb-8">
+                    Мастер проведёт диагностику лакокрасочного покрытия, подберёт оптимальную услугу и рассчитает точную стоимость. Без обязательств.
+                </p>
+
+                <!-- Benefits -->
+                <div class="space-y-4">
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 rounded-xl bg-brand-red/10 flex items-center justify-center flex-shrink-0">
+                            <i class="fa-solid fa-clock text-brand-red"></i>
+                        </div>
+                        <div>
+                            <p class="text-white font-medium text-sm">Ответим за 15 минут</p>
+                            <p class="text-gray-500 text-xs">Менеджер свяжется с вами в рабочее время</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 rounded-xl bg-brand-red/10 flex items-center justify-center flex-shrink-0">
+                            <i class="fa-solid fa-microscope text-brand-red"></i>
+                        </div>
+                        <div>
+                            <p class="text-white font-medium text-sm">Бесплатная диагностика</p>
+                            <p class="text-gray-500 text-xs">Замер толщины ЛКП толщиномером</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 rounded-xl bg-brand-red/10 flex items-center justify-center flex-shrink-0">
+                            <i class="fa-solid fa-tag text-brand-red"></i>
+                        </div>
+                        <div>
+                            <p class="text-white font-medium text-sm">Фиксированная цена</p>
+                            <p class="text-gray-500 text-xs">Без скрытых доплат и навязанных услуг</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: Form -->
+            <div class="reveal" style="transition-delay: 0.2s;">
+                <form id="booking-form" class="glass-card form-glow rounded-3xl p-8 md:p-10">
+                    <h3 class="font-display font-bold text-xl text-white mb-6 flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-lg bg-brand-red flex items-center justify-center">
+                            <i class="fa-solid fa-calendar-check text-white text-sm"></i>
+                        </div>
+                        Забронировать время
+                    </h3>
+
+                    <!-- Name -->
+                    <div class="mb-5">
+                        <label for="client-name" class="block text-gray-400 text-sm font-medium mb-2">Ваше имя</label>
+                        <input
+                            type="text"
+                            id="client-name"
+                            name="name"
+                            required
+                            placeholder="Например, Арман"
+                            class="w-full bg-dark-700 border border-dark-500 rounded-xl px-5 py-3.5 text-white placeholder-dark-300 text-sm transition-all duration-300"
+                        >
+                    </div>
+
+                    <!-- Phone -->
+                    <div class="mb-5">
+                        <label for="client-phone" class="block text-gray-400 text-sm font-medium mb-2">Номер телефона</label>
+                        <input
+                            type="tel"
+                            id="client-phone"
+                            name="phone"
+                            required
+                            placeholder="+7 (7XX) XXX-XX-XX"
+                            class="w-full bg-dark-700 border border-dark-500 rounded-xl px-5 py-3.5 text-white placeholder-dark-300 text-sm transition-all duration-300"
+                        >
+                    </div>
+
+                    <!-- Car brand -->
+                    <div class="mb-5">
+                        <label for="client-car" class="block text-gray-400 text-sm font-medium mb-2">Марка авто</label>
+                        <input
+                            type="text"
+                            id="client-car"
+                            name="car"
+                            required
+                            placeholder="Например, Toyota Camry 70"
+                            class="w-full bg-dark-700 border border-dark-500 rounded-xl px-5 py-3.5 text-white placeholder-dark-300 text-sm transition-all duration-300"
+                        >
+                    </div>
+
+                    <!-- Service category -->
+                    <div class="mb-8">
+                        <label for="client-service" class="block text-gray-400 text-sm font-medium mb-2">Интересующая услуга</label>
+                        <select
+                            id="client-service"
+                            name="service"
+                            class="w-full bg-dark-700 border border-dark-500 rounded-xl px-5 py-3.5 text-white text-sm transition-all duration-300 appearance-none"
+                            style="background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23E5142E%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E'); background-repeat: no-repeat; background-position: right 1rem top 50%; background-size: 0.65rem auto;"
+                        >
+                            <option value="Не выбрано">Выберите услугу (необязательно)</option>
+                            <option value="Оклейка пленкой">Оклейка пленкой</option>
+                            <option value="Химчистка">Химчистка</option>
+                            <option value="Полировка">Полировка</option>
+                            <option value="Тюнинг оптики">Тюнинг оптики</option>
+                            <option value="Автозвук">Автозвук</option>
+                            <option value="Другое">Другое</option>
+                        </select>
+                    </div>
+
+                    <!-- Submit -->
+                    <button
+                        type="submit"
+                        id="submit-btn"
+                        class="cta-btn w-full bg-brand-red hover:bg-brand-red-dark text-white font-display font-bold text-base py-4 rounded-xl transition-all duration-300 shadow-lg shadow-brand-red/25 hover:shadow-brand-red/40 flex items-center justify-center gap-3"
+                    >
+                        <i class="fa-solid fa-paper-plane"></i>
+                        <span>Забронировать время</span>
+                    </button>
+
+                    <p class="text-gray-600 text-xs text-center mt-4">
+                        Нажимая кнопку, вы соглашаетесь с обработкой персональных данных
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ==================== BRANCHES / CONTACTS ==================== -->
+<section id="contacts" class="relative py-20 md:py-32 bg-dark-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16 reveal">
+            <span class="text-brand-red font-display font-semibold text-sm tracking-[0.3em] uppercase mb-4 block">Контакты</span>
+            <h2 class="font-display font-black text-3xl sm:text-4xl md:text-5xl text-white mb-4">
+                3 филиала <span class="shimmer-text">в Астане</span>
+            </h2>
+            <p class="text-gray-500 text-base md:text-lg max-w-xl mx-auto font-light">
+                Выберите ближайший и приезжайте — мы всегда рады вас видеть.
+            </p>
+        </div>
+
+        <!-- Branch cards -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16 reveal">
+            <!-- Branch 1 -->
+            <div class="branch-card glass-card rounded-2xl p-6 md:p-8 border border-dark-500">
+                <div class="w-14 h-14 rounded-2xl bg-brand-red/10 flex items-center justify-center mb-5">
+                    <i class="branch-icon fa-solid fa-location-dot text-brand-red text-2xl"></i>
+                </div>
+                <h3 class="font-display font-bold text-lg text-white mb-2">Филиал «Центр»</h3>
+                <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                    ул. Шамши Калдаякова, 58/2<br>
+                    Сарайшық район, Астана
+                </p>
+                <div class="flex items-center gap-2 text-gray-500 text-sm mb-2">
+                    <i class="fa-regular fa-clock text-brand-red text-xs"></i>
+                    <span>10:00 — 21:00, без выходных</span>
+                </div>
+                <div class="flex items-center gap-2 text-gray-500 text-sm">
+                    <i class="fa-solid fa-phone text-brand-red text-xs"></i>
+                    <a href="tel:+77718326125" class="hover:text-brand-red transition">+7 (771) 832-61-25</a>
+                </div>
+            </div>
+
+            <!-- Branch 2 -->
+            <div class="branch-card glass-card rounded-2xl p-6 md:p-8 border border-dark-500">
+                <div class="w-14 h-14 rounded-2xl bg-brand-red/10 flex items-center justify-center mb-5">
+                    <i class="branch-icon fa-solid fa-location-dot text-brand-red text-2xl"></i>
+                </div>
+                <h3 class="font-display font-bold text-lg text-white mb-2">Филиал «Есиль»</h3>
+                <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                    пр. Мәңгілік Ел, 42<br>
+                    Есиль район, Астана
+                </p>
+                <div class="flex items-center gap-2 text-gray-500 text-sm mb-2">
+                    <i class="fa-regular fa-clock text-brand-red text-xs"></i>
+                    <span>10:00 — 21:00, без выходных</span>
+                </div>
+                <div class="flex items-center gap-2 text-gray-500 text-sm">
+                    <i class="fa-solid fa-phone text-brand-red text-xs"></i>
+                    <a href="tel:+77718326125" class="hover:text-brand-red transition">+7 (771) 832-61-25</a>
+                </div>
+            </div>
+
+            <!-- Branch 3 -->
+            <div class="branch-card glass-card rounded-2xl p-6 md:p-8 border border-dark-500">
+                <div class="w-14 h-14 rounded-2xl bg-brand-red/10 flex items-center justify-center mb-5">
+                    <i class="branch-icon fa-solid fa-location-dot text-brand-red text-2xl"></i>
+                </div>
+                <h3 class="font-display font-bold text-lg text-white mb-2">Филиал «Алматы»</h3>
+                <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                    ул. Кенесары, 70<br>
+                    Алматы район, Астана
+                </p>
+                <div class="flex items-center gap-2 text-gray-500 text-sm mb-2">
+                    <i class="fa-regular fa-clock text-brand-red text-xs"></i>
+                    <span>10:00 — 21:00, без выходных</span>
+                </div>
+                <div class="flex items-center gap-2 text-gray-500 text-sm">
+                    <i class="fa-solid fa-phone text-brand-red text-xs"></i>
+                    <a href="tel:+77718326125" class="hover:text-brand-red transition">+7 (771) 832-61-25</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Social links -->
+        <div class="text-center reveal">
+            <p class="text-gray-500 text-sm font-medium mb-6 uppercase tracking-wider">Мы в соцсетях</p>
+            <div class="flex justify-center gap-4">
+                <a href="https://www.instagram.com/radjabov.detailing" target="_blank" class="social-btn flex items-center gap-3 bg-gradient-to-r from-[#833AB4] via-[#FD1D1D] to-[#F77737] text-white font-semibold text-sm px-6 py-3 rounded-full">
+                    <i class="fa-brands fa-instagram text-lg"></i>
+                    <span>Instagram</span>
+                </a>
+                <a href="https://tiktok.com/@radjabov.detailing" target="_blank" class="social-btn flex items-center gap-3 bg-dark-700 hover:bg-dark-600 text-white font-semibold text-sm px-6 py-3 rounded-full border border-dark-500">
+                    <i class="fa-brands fa-tiktok text-lg"></i>
+                    <span>TikTok</span>
+                </a>
+                <a href="https://wa.me/77718326125" target="_blank" class="social-btn flex items-center gap-3 bg-[#25D366]/10 hover:bg-[#25D366]/20 text-[#25D366] font-semibold text-sm px-6 py-3 rounded-full border border-[#25D366]/20">
+                    <i class="fa-brands fa-whatsapp text-lg"></i>
+                    <span>WhatsApp</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ==================== FOOTER ==================== -->
+<footer class="bg-dark-900 border-t border-dark-700 pt-16 pb-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+            <!-- Brand -->
+            <div class="md:col-span-1">
+                <a href="#" class="flex items-center gap-2 mb-4">
+                    <div class="w-10 h-10 bg-brand-red rounded-lg flex items-center justify-center">
+                        <span class="font-display font-black text-white">R</span>
+                    </div>
+                    <div>
+                        <span class="font-display font-bold text-white text-lg tracking-wide">RADJABOV</span>
+                    </div>
+                </a>
+                <p class="text-gray-500 text-sm leading-relaxed">
+                    Студия премиум-детейлинга №1 в Астане. Защита, восстановление и преображение вашего авто.
+                </p>
+            </div>
+
+            <!-- Quick links -->
+            <div>
+                <h4 class="font-display font-bold text-white text-sm mb-4 uppercase tracking-wider">Навигация</h4>
+                <ul class="space-y-3">
+                    <li><a href="#services" class="text-gray-500 hover:text-brand-red text-sm transition">Услуги</a></li>
+                    <li><a href="#reviews" class="text-gray-500 hover:text-brand-red text-sm transition">Отзывы</a></li>
+                    <li><a href="#booking-form" class="text-gray-500 hover:text-brand-red text-sm transition">Запись</a></li>
+                    <li><a href="#contacts" class="text-gray-500 hover:text-brand-red text-sm transition">Контакты</a></li>
+                </ul>
+            </div>
+
+            <!-- Services -->
+            <div>
+                <h4 class="font-display font-bold text-white text-sm mb-4 uppercase tracking-wider">Услуги</h4>
+                <ul class="space-y-3">
+                    <li><a href="#services" class="text-gray-500 hover:text-brand-red text-sm transition">Керамическое покрытие</a></li>
+                    <li><a href="#services" class="text-gray-500 hover:text-brand-red text-sm transition">Оклейка PPF</a></li>
+                    <li><a href="#services" class="text-gray-500 hover:text-brand-red text-sm transition">Химчистка салона</a></li>
+                    <li><a href="#services" class="text-gray-500 hover:text-brand-red text-sm transition">Полировка кузова</a></li>
+                </ul>
+            </div>
+
+            <!-- Contact summary -->
+            <div>
+                <h4 class="font-display font-bold text-white text-sm mb-4 uppercase tracking-wider">Связь</h4>
+                <ul class="space-y-3">
+                    <li class="flex items-center gap-2 text-gray-500 text-sm">
+                        <i class="fa-solid fa-phone text-brand-red text-xs"></i>
+                        <a href="tel:+77718326125" class="hover:text-brand-red transition">+7 (771) 832-61-25</a>
+                    </li>
+                    <li class="flex items-center gap-2 text-gray-500 text-sm">
+                        <i class="fa-brands fa-whatsapp text-brand-red text-xs"></i>
+                        <a href="https://wa.me/77718326125" class="hover:text-brand-red transition">WhatsApp</a>
+                    </li>
+                    <li class="flex items-center gap-2 text-gray-500 text-sm">
+                        <i class="fa-brands fa-instagram text-brand-red text-xs"></i>
+                        <a href="https://instagram.com/radjabov.detailing" class="hover:text-brand-red transition">@radjabov.detailing</a>
+                    </li>
+                    <li class="flex items-center gap-2 text-gray-500 text-sm">
+                        <i class="fa-brands fa-tiktok text-brand-red text-xs"></i>
+                        <a href="https://tiktok.com/@radjabov.detailing" class="hover:text-brand-red transition">@radjabov.detailing</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Bottom bar -->
+        <div class="red-line mb-8"></div>
+        <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+            <p class="text-gray-600 text-xs">
+                &copy; 2026 Radjabov Detailing. Все права защищены.
+            </p>
+            <div class="flex items-center gap-2 text-gray-600 text-xs">
+                <span>Разработано с</span>
+                <i class="fa-solid fa-heart text-brand-red text-[10px]"></i>
+                <span>для #1 детейлинг-студии Астаны</span>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+<!-- ==================== FLOATING CTA (Mobile) ==================== -->
+<div class="fixed bottom-6 left-4 right-4 z-50 md:hidden">
+    <a href="#booking-form" class="cta-btn w-full bg-brand-red hover:bg-brand-red-dark text-white font-display font-bold text-sm py-4 rounded-2xl shadow-2xl shadow-brand-red/30 flex items-center justify-center gap-3 animate-pulse-glow">
+        <i class="fa-solid fa-calendar-check"></i>
+        <span>Записаться на осмотр</span>
+    </a>
+</div>
+
+
+<!-- ==================== JAVASCRIPT ==================== -->
+<script src="config.js"></script>
+<script>
+    // ===== Navbar scroll effect =====
+    const navbar = document.getElementById('navbar');
+    let lastScroll = 0;
+
+    window.addEventListener('scroll', () => {
+        const currentScroll = window.scrollY;
+        if (currentScroll > 50) {
+            navbar.classList.add('nav-scrolled');
+        } else {
+            navbar.classList.remove('nav-scrolled');
+        }
+        lastScroll = currentScroll;
+    });
+
+
+    // ===== Mobile menu toggle =====
+    const menuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    menuBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+        const icon = menuBtn.querySelector('i');
+        if (mobileMenu.classList.contains('hidden')) {
+            icon.className = 'fa-solid fa-bars';
+        } else {
+            icon.className = 'fa-solid fa-xmark';
+        }
+    });
+
+    // Close menu on link click
+    document.querySelectorAll('.mobile-link').forEach(link => {
+        link.addEventListener('click', () => {
+            mobileMenu.classList.add('hidden');
+            menuBtn.querySelector('i').className = 'fa-solid fa-bars';
+        });
+    });
+
+
+    // ===== Form submission + Toast =====
+    const bookingForm = document.getElementById('booking-form');
+    const toast = document.getElementById('toast');
+
+    bookingForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const name = document.getElementById('client-name').value.trim();
+        const phone = document.getElementById('client-phone').value.trim();
+        const car = document.getElementById('client-car').value.trim();
+        const serviceSelect = document.getElementById('client-service');
+        const service = serviceSelect ? serviceSelect.value : '';
+
+        if (!name || !phone || !car) return;
+
+        // UI: блокируем кнопку и показываем спиннер
+        const btn = document.getElementById('submit-btn');
+        const originalHTML = btn.innerHTML;
+        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> <span>Отправляем...</span>';
+        btn.disabled = true;
+
+        try {
+            const response = await fetch('/api/telegram', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    name: name,
+                    phone: phone,
+                    car: car,
+                    service: service !== 'Не выбрано' ? service : '',
+                    bot_token: BOT_TOKEN, // from config.js
+                    chat_id: CHAT_ID // from config.js
+                }),
+            });
+
+            if (response.ok) {
+                bookingForm.reset();
+                showToast();
+            } else {
+                throw new Error(`Server error: ${response.status}`);
+            }
+        } catch (error) {
+            console.error('❌ Ошибка отправки:', error);
+            alert('Произошла ошибка при отправке. Пожалуйста, напишите нам в WhatsApp.');
+        } finally {
+            btn.innerHTML = originalHTML;
+            btn.disabled = false;
+        }
+    });
+
+    function showToast() {
+        toast.classList.add('show');
+        setTimeout(() => hideToast(), 5000);
+    }
+
+    function hideToast() {
+        toast.classList.remove('show');
+    }
+
+
+    // ===== Counter animation =====
+    function animateCounters() {
+        const counters = document.querySelectorAll('.counter-value');
+
+        counters.forEach(counter => {
+            const target = parseFloat(counter.getAttribute('data-target'));
+            const isDecimal = target % 1 !== 0;
+            const duration = 2000;
+            const startTime = performance.now();
+
+            function update(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+
+                // Easing function (ease-out cubic)
+                const eased = 1 - Math.pow(1 - progress, 3);
+                const current = eased * target;
+
+                if (isDecimal) {
+                    counter.textContent = current.toFixed(1);
+                } else {
+                    counter.textContent = Math.floor(current).toLocaleString();
+                }
+
+                if (progress < 1) {
+                    requestAnimationFrame(update);
+                } else {
+                    counter.textContent = isDecimal ? target.toFixed(1) : target.toLocaleString();
+                }
+            }
+
+            requestAnimationFrame(update);
+        });
+    }
+
+
+    // ===== Intersection Observer for reveals + counter trigger =====
+    const observerOptions = {
+        threshold: 0.15,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    let countersAnimated = false;
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+
+                // Trigger counter animation when stats section is visible
+                if (!countersAnimated && entry.target.closest('#reviews')) {
+                    countersAnimated = true;
+                    animateCounters();
+                }
+
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+
+    // ===== Smooth scroll for anchor links =====
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                const headerOffset = 80;
+                const elementPosition = target.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.scrollY - headerOffset;
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+
+
+    // ===== Phone input formatting =====
+    const phoneInput = document.getElementById('client-phone');
+    phoneInput.addEventListener('input', (e) => {
+        let value = e.target.value.replace(/\D/g, '');
+        if (value.startsWith('8')) value = '7' + value.slice(1);
+        if (value.length > 0 && !value.startsWith('7')) value = '7' + value;
+
+        let formatted = '';
+        if (value.length > 0) formatted = '+' + value.substring(0, 1);
+        if (value.length > 1) formatted += ' (' + value.substring(1, 4);
+        if (value.length > 4) formatted += ') ' + value.substring(4, 7);
+        if (value.length > 7) formatted += '-' + value.substring(7, 9);
+        if (value.length > 9) formatted += '-' + value.substring(9, 11);
+
+        e.target.value = formatted;
+    });
+    // ===== Before/After slider =====
+    const compareInput = document.getElementById('compare-input');
+    const compareAfterImg = document.getElementById('compare-after-img');
+    const compareLine = document.getElementById('compare-line');
+    const compareHandle = document.getElementById('compare-handle');
+
+    if (compareInput) {
+        compareInput.addEventListener('input', (e) => {
+            const val = e.target.value;
+            compareAfterImg.style.clipPath = `inset(0 0 0 ${val}%)`;
+            compareLine.style.left = `${val}%`;
+            compareHandle.style.left = `${val}%`;
+        });
+    }
+
+</script>
+
+</body>
+</html>
