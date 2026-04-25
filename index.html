@@ -1269,7 +1269,7 @@
 
 
 <!-- ==================== JAVASCRIPT ==================== -->
-<script src="config.js"></script>
+<!-- Tokens are stored securely on the server (process.env) -->
 <script>
     // ===== Scroll position restore (from service.html back-navigation) =====
     (function() {
@@ -1356,9 +1356,7 @@
                     name: name,
                     phone: phone,
                     car: car,
-                    service: service !== 'Не выбрано' ? service : '',
-                    bot_token: BOT_TOKEN, // from config.js
-                    chat_id: CHAT_ID // from config.js
+                    service: service !== 'Не выбрано' ? service : ''
                 }),
             });
 
@@ -1685,9 +1683,7 @@
                         service: quizState.service,
                         condition: quizState.condition,
                         price: price
-                    },
-                    bot_token: BOT_TOKEN,
-                    chat_id: CHAT_ID
+                    }
                 }),
             });
 

@@ -186,14 +186,10 @@ export default async function handler(req, res) {
         // ────────────────────────────────────────────────────────
         // BRANCH B: Website Lead (form or quiz)
         // ────────────────────────────────────────────────────────
-        const { name, phone, car, service, quiz, bot_token, chat_id } = body;
+        const { name, phone, car, service, quiz } = body;
 
-        // Allow both: env-based and client-passed tokens (backward compat)
-        const token  = BOT_TOKEN || bot_token;
-        const chatTo = CHAT_ID   || chat_id;
-
-        if (!phone || !token || !chatTo) {
-            return res.status(400).json({ error: 'Missing required fields' });
+        if (!phone || !BOT_TOKEN || !CHAT_ID) {
+            return res.status(400).json({ error: 'Missing required fields or server config' });
         }
 
         const cleanPhone = phone.replace(/[^\d]/g, '');
@@ -238,12 +234,12 @@ export default async function handler(req, res) {
 
         // Send message with inline CRM buttons
         const result = await fetch(
-            `https://api.telegram.org/bot${token}/sendMessage`,
+            `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`,
             {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    chat_id:  chatTo,
+                    chat_id:  CHAT_ID,
                     text:     text,
                     parse_mode: 'HTML',
                     disable_web_page_preview: true,
