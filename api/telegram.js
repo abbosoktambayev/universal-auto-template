@@ -358,13 +358,12 @@ export default async function handler(req, res) {
             return res.status(500).json({ error: 'Telegram API error' });
         }
 
-        // ── Fire-and-forget: log to Google Sheets ────────────────
-        // Don't await — client gets 200 immediately, sheet logs async
-        logToSheets({
+        // ── Log to Google Sheets (await — Vercel kills context after return) ──
+        await logToSheets({
             timestamp: now(),
             type: quiz ? 'quiz' : 'form',
             name: name || '',
-            phone,
+            phone: `'${phone}`,  // apostrophe prevents Sheets formula parsing
             car: car || '',
             service: quiz ? quiz.service : (service || ''),
             carClass: quiz?.carClass || '',
