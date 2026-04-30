@@ -176,12 +176,11 @@ export default async function handler(req, res) {
             return res.status(403).json({ error: 'Forbidden: origin' });
         }
 
-        // API Secret check
-        if (API_SECRET) {
-            const clientSecret = req.headers['x-crm-secret'];
-            if (clientSecret !== API_SECRET) {
-                return res.status(403).json({ error: 'Forbidden: invalid token' });
-            }
+        // API Secret check — MANDATORY
+        // Blocks curl/Postman: they don't know the secret
+        const clientSecret = req.headers['x-crm-secret'];
+        if (!API_SECRET || clientSecret !== API_SECRET) {
+            return res.status(403).json({ error: 'Forbidden' });
         }
     }
 
