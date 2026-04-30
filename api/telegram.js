@@ -23,7 +23,7 @@ const BOT_TOKEN      = process.env.BOT_TOKEN;
 const CHAT_ID        = process.env.CHAT_ID;
 const API_SECRET     = process.env.API_SECRET;
 const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET;
-const ALLOWED_ORIGIN = process.env.ALLOWED_ORIGIN || 'https://YOUR_FRONTEND_DOMAIN.com';
+const ALLOWED_ORIGIN = process.env.ALLOWED_ORIGIN || 'https://universal-auto-template.com';
 
 // ── Helpers ─────────────────────────────────────────────────────
 
