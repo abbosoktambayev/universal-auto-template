@@ -1282,6 +1282,28 @@
         }
     })();
 
+    // ===== UTM tracking — capture source from URL params =====
+    const _utm = (() => {
+        const p = new URLSearchParams(window.location.search);
+        const d = {};
+        ['utm_source','utm_medium','utm_campaign'].forEach(k => {
+            if (p.get(k)) d[k.replace('utm_','')] = p.get(k);
+        });
+        // Fallback: detect referrer
+        if (!d.source && document.referrer) {
+            try {
+                const host = new URL(document.referrer).hostname;
+                if (host.includes('instagram')) d.source = 'instagram';
+                else if (host.includes('google')) d.source = 'google';
+                else if (host.includes('2gis')) d.source = '2gis';
+                else if (host.includes('tiktok')) d.source = 'tiktok';
+                else d.source = host;
+            } catch(e) {}
+        }
+        d.page = window.location.pathname;
+        return d;
+    })();
+
     // ===== Save scroll position when clicking service cards =====
     document.querySelectorAll('a[href^="service.html"]').forEach(link => {
         link.addEventListener('click', () => {
@@ -1359,7 +1381,8 @@
                     name: name,
                     phone: phone,
                     car: car,
-                    service: service !== 'Не выбрано' ? service : ''
+                    service: service !== 'Не выбрано' ? service : '',
+                    utm: _utm
                 }),
             });
 
@@ -1689,7 +1712,8 @@
                         service: quizState.service,
                         condition: quizState.condition,
                         price: price
-                    }
+                    },
+                    utm: _utm
                 }),
             });
 

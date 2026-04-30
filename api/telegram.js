@@ -24,6 +24,7 @@ const CHAT_ID        = process.env.CHAT_ID;
 const API_SECRET     = process.env.API_SECRET;
 const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET;
 const ALLOWED_ORIGIN = process.env.ALLOWED_ORIGIN || 'https://universal-auto-template.vercel.app';
+const SHEETS_WEBHOOK = process.env.SHEETS_WEBHOOK; // Google Apps Script URL
 
 // ── Helpers ─────────────────────────────────────────────────────
 
@@ -294,7 +295,12 @@ export default async function handler(req, res) {
         // ═════════════════════════════════════════════════════════
         // BRANCH B — Website Lead (form / quiz)
         // ═════════════════════════════════════════════════════════
-        const { name, phone, car, service, quiz } = body;
+        const { name, phone, car, service, quiz, utm } = body;
+
+        // Format UTM source label for Telegram message
+        const utmLabel = utm?.source
+            ? `📍 ${utm.source}${utm.medium ? ' / ' + utm.medium : ''}${utm.campaign ? ' / ' + utm.campaign : ''}`
+            : '📍 Прямой заход';
 
         // ─── LAYER 4: Payload validation ────────────────────────
         if (!phone || typeof phone !== 'string' || phone.trim().length < 10) {
@@ -322,7 +328,8 @@ export default async function handler(req, res) {
                 `<b>🔧 Услуга:</b>  ${esc(quiz.service || '—')}`,
                 `<b>📋 Состояние:</b>  ${esc(quiz.condition || '—')}`,
                 `<b>💰 Ожидаемый чек:</b>  ${price}`,
-                `<b>📱 Телефон:</b>  ${esc(phone)}`, '',
+                `<b>📱 Телефон:</b>  ${esc(phone)}`,
+                `<b>${esc(utmLabel)}</b>`, '',
                 `🕐 <i>${now()}</i>`,
             ].join('\n');
         } else {
@@ -332,7 +339,8 @@ export default async function handler(req, res) {
                 `<b>👤 Имя:</b>  ${esc(name)}`,
                 `<b>🚘 Авто:</b>  ${esc(car)}`,
                 svc,
-                `<b>📱 Телефон:</b>  ${esc(phone)}`, '',
+                `<b>📱 Телефон:</b>  ${esc(phone)}`,
+                `<b>${esc(utmLabel)}</b>`, '',
                 `🕐 <i>${now()}</i>`,
             ].filter(Boolean).join('\n');
         }
@@ -350,10 +358,41 @@ export default async function handler(req, res) {
             return res.status(500).json({ error: 'Telegram API error' });
         }
 
-        return res.status(200).json({ success: true });
+        // ── Fire-and-forget: log to Google Sheets ────────────────
+        // Don't await — client gets 200 immediately, sheet logs async
+        logToSheets({
+            timestamp: now(),
+            type: quiz ? 'quiz' : 'form',
+            name: name || '',
+            phone,
+            car: car || '',
+            service: quiz ? quiz.service : (service || ''),
+            carClass: quiz?.carClass || '',
+            condition: quiz?.condition || '',
+            price: quiz?.price || '',
+            source: utm?.source || 'direct',
+            medium: utm?.medium || '',
+            campaign: utm?.campaign || '',
+            page: utm?.page || '/',
+        });
 
+        return res.status(200).json({ success: true });
     } catch (error) {
         console.error('Handler error:', error);
         return res.status(200).json({ error: 'Internal error' });
+    }
+}
+
+// ── Google Sheets logger (called after response) ────────────────
+async function logToSheets(data) {
+    if (!SHEETS_WEBHOOK) return;
+    try {
+        await fetch(SHEETS_WEBHOOK, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data),
+        });
+    } catch (e) {
+        console.error('Sheets log error:', e);
     }
 }

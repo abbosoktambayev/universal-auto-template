@@ -776,6 +776,27 @@
 <!-- ==================== JAVASCRIPT ==================== -->
 <!-- Tokens are stored securely on the server (process.env) -->
 <script>
+    // ===== UTM tracking =====
+    const _utm = (() => {
+        const p = new URLSearchParams(window.location.search);
+        const d = {};
+        ['utm_source','utm_medium','utm_campaign'].forEach(k => {
+            if (p.get(k)) d[k.replace('utm_','')] = p.get(k);
+        });
+        if (!d.source && document.referrer) {
+            try {
+                const host = new URL(document.referrer).hostname;
+                if (host.includes('instagram')) d.source = 'instagram';
+                else if (host.includes('google')) d.source = 'google';
+                else if (host.includes('2gis')) d.source = '2gis';
+                else if (host.includes('tiktok')) d.source = 'tiktok';
+                else d.source = host;
+            } catch(e) {}
+        }
+        d.page = window.location.pathname;
+        return d;
+    })();
+
     // ===== Service Data Load =====
     const servicesData = {
         'ceramic': {
@@ -924,7 +945,8 @@
                     name: name,
                     phone: phone,
                     car: car,
-                    service: service !== 'Не выбрано' ? service : ''
+                    service: service !== 'Не выбрано' ? service : '',
+                    utm: _utm
                 }),
             });
 
