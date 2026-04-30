@@ -916,7 +916,10 @@
         try {
             const response = await fetch('/api/telegram', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-crm-secret': '71514acd6ee3bd2867d6757e1e06ee6cb659d600bbc696d7b175934a8002f2f3'
+                },
                 body: JSON.stringify({
                     name: name,
                     phone: phone,

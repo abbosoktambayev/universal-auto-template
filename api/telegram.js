@@ -1,26 +1,32 @@
 // ================================================================
-// Vercel Serverless — Telegram CRM State Machine
+// Vercel Serverless — Telegram CRM State Machine (Secured)
 // POST /api/telegram
 //
-// Two entry points on one URL:
-//   1. JSON from website (form / quiz) → sendMessage + Stage 1 buttons
-//   2. Webhook from Telegram (callback_query) → editMessage by stage
+// SECURITY LAYERS:
+//   1. CORS — only ALLOWED_ORIGIN can call from browser
+//   2. API_SECRET — frontend sends x-crm-secret header
+//   3. WEBHOOK_SECRET — Telegram sends X-Telegram-Bot-Api-Secret-Token
+//   4. CHAT_ID guard — callbacks only from authorized chat
+//   5. Resource locking — manager ID in callback_data
+//   6. Payload validation — sanitize + reject empty data
+//   7. HTML escaping — prevent injection in Telegram messages
 //
-// State flow:
-//   Stage 1  →  take_work   →  Stage 2  →  success       →  FINAL
-//           →  spam         →  FINAL       →  start_reject →  Stage 3
-//                                           ←  back (Stage3→2)
-//   Stage 3  →  rej_*       →  FINAL
-//
-// Env vars: BOT_TOKEN, CHAT_ID
+// Env vars (set on Vercel):
+//   BOT_TOKEN       — Telegram bot token
+//   CHAT_ID         — Target chat/supergroup ID
+//   API_SECRET      — Shared secret for frontend requests
+//   WEBHOOK_SECRET  — Secret token for Telegram webhook verification
+//   ALLOWED_ORIGIN  — Frontend domain (e.g. https://yourdomain.com)
 // ================================================================
 
-const BOT_TOKEN = process.env.BOT_TOKEN;
-const CHAT_ID   = process.env.CHAT_ID;
+const BOT_TOKEN      = process.env.BOT_TOKEN;
+const CHAT_ID        = process.env.CHAT_ID;
+const API_SECRET     = process.env.API_SECRET;
+const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET;
+const ALLOWED_ORIGIN = process.env.ALLOWED_ORIGIN || 'https://YOUR_FRONTEND_DOMAIN.com';
 
 // ── Helpers ─────────────────────────────────────────────────────
 
-/** Safe Telegram API call with race-condition guard */
 async function tg(method, payload) {
     try {
         const r = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/${method}`, {
@@ -29,23 +35,20 @@ async function tg(method, payload) {
             body: JSON.stringify(payload),
         });
         const json = await r.json();
-        // Graceful handling: two managers clicked at the same instant
         if (!json.ok && json.description?.includes('message is not modified')) {
             return { ok: true, race: true };
         }
         return json;
     } catch (err) {
-        console.error(`tg.${method} error:`, err);
+        console.error(`tg.${method}:`, err);
         return { ok: false, error: err.message };
     }
 }
 
-/** Escape HTML special chars in user-submitted data */
 function esc(s) {
     return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
 
-/** Astana time (UTC+5) */
 function now() {
     return new Date().toLocaleString('ru-RU', {
         timeZone: 'Asia/Almaty',
@@ -54,19 +57,12 @@ function now() {
     });
 }
 
-/**
- * Reconstruct HTML from plain text + Telegram entities array.
- * Preserves bold, italic, links when editing a message.
- */
 function rebuildHtml(text, entities) {
     if (!text) return '';
     if (!entities || entities.length === 0) return esc(text);
-
-    const chars = [...text]; // proper Unicode offset handling
+    const chars = [...text];
     const sorted = [...entities].sort((a, b) => a.offset - b.offset);
-    let out = '';
-    let pos = 0;
-
+    let out = '', pos = 0;
     for (const e of sorted) {
         if (e.offset > pos) out += esc(chars.slice(pos, e.offset).join(''));
         const inner = esc(chars.slice(e.offset, e.offset + e.length).join(''));
@@ -122,19 +118,75 @@ function kbStage3(mid) {
     ]};
 }
 
+// ── Request classifier ──────────────────────────────────────────
+
+function isTelegramWebhook(req) {
+    // Telegram webhooks include update_id, or callback_query, or message
+    const b = req.body;
+    return b && (b.update_id !== undefined || b.callback_query || b.message);
+}
+
 // ================================================================
 //  MAIN HANDLER
 // ================================================================
 export default async function handler(req, res) {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-    if (req.method === 'OPTIONS') return res.status(200).end();
-    if (req.method !== 'POST')    return res.status(200).end();
 
+    // ─── LAYER 1: Method guard ──────────────────────────────────
+    if (req.method === 'OPTIONS') {
+        // CORS preflight — respond with allowed origin
+        res.setHeader('Access-Control-Allow-Origin', ALLOWED_ORIGIN);
+        res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+        res.setHeader('Access-Control-Allow-Headers', 'Content-Type, x-crm-secret');
+        res.setHeader('Access-Control-Max-Age', '86400');
+        return res.status(200).end();
+    }
+
+    if (req.method !== 'POST') {
+        return res.status(405).json({ error: 'Method Not Allowed' });
+    }
+
+    // ─── LAYER 2: Route by source (Telegram vs Frontend) ────────
+    const body = req.body;
+    if (!body || Object.keys(body).length === 0) {
+        return res.status(400).json({ error: 'Empty payload' });
+    }
+
+    const telegramRequest = isTelegramWebhook(req);
+
+    if (telegramRequest) {
+        // ─── LAYER 3a: Telegram Webhook Secret ──────────────────
+        // Telegram sends the secret in X-Telegram-Bot-Api-Secret-Token
+        // header when you register webhook with ?secret_token=...
+        if (WEBHOOK_SECRET) {
+            const tgSecret = req.headers['x-telegram-bot-api-secret-token'];
+            if (tgSecret !== WEBHOOK_SECRET) {
+                // Silent reject — don't reveal info to attacker
+                return res.status(200).end();
+            }
+        }
+    } else {
+        // ─── LAYER 3b: Frontend CORS + API Secret ───────────────
+        res.setHeader('Access-Control-Allow-Origin', ALLOWED_ORIGIN);
+        res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+        res.setHeader('Access-Control-Allow-Headers', 'Content-Type, x-crm-secret');
+
+        // Origin check (browser-enforced, defense in depth)
+        const origin = req.headers['origin'] || '';
+        if (ALLOWED_ORIGIN !== '*' && origin && origin !== ALLOWED_ORIGIN) {
+            return res.status(403).json({ error: 'Forbidden: origin' });
+        }
+
+        // API Secret check
+        if (API_SECRET) {
+            const clientSecret = req.headers['x-crm-secret'];
+            if (clientSecret !== API_SECRET) {
+                return res.status(403).json({ error: 'Forbidden: invalid token' });
+            }
+        }
+    }
+
+    // ─── Main logic ─────────────────────────────────────────────
     try {
-        const body = req.body;
-        if (!body || Object.keys(body).length === 0) return res.status(200).end();
 
         // ═════════════════════════════════════════════════════════
         // BRANCH A — Telegram Webhook: callback_query
@@ -146,19 +198,17 @@ export default async function handler(req, res) {
             const msgId  = msg.message_id;
             const user   = cb.from;
 
-            // ── Chat ID guard ───────────────────────────────────
             if (chatId !== CHAT_ID) {
                 await tg('answerCallbackQuery', { callback_query_id: cb.id, text: '⛔ Нет доступа' });
                 return res.status(200).end();
             }
 
-            // Parse "action" or "action:lockedManagerId"
             const [action, lockId] = cb.data.split(':');
             const mgrTag  = user.username ? `@${user.username}` : (user.first_name || 'Менеджер');
             const time    = now();
             const htmlNow = rebuildHtml(msg.text || '', msg.entities);
 
-            // ── Resource lock check (Stages 2-3-4) ──────────────
+            // Resource lock
             if (lockId && String(user.id) !== lockId) {
                 await tg('answerCallbackQuery', {
                     callback_query_id: cb.id,
@@ -168,12 +218,10 @@ export default async function handler(req, res) {
                 return res.status(200).end();
             }
 
-            // ── Stage 1 → Stage 2 : Взять в работу ─────────────
             if (action === 'take_work') {
                 const updated = htmlNow
                     + `\n\n──────────────────────`
                     + `\n⚡️ <b>Взято в работу:</b> ${esc(mgrTag)} (${time})`;
-
                 await tg('editMessageText', {
                     chat_id: chatId, message_id: msgId,
                     text: updated, parse_mode: 'HTML',
@@ -182,13 +230,11 @@ export default async function handler(req, res) {
                 await tg('answerCallbackQuery', { callback_query_id: cb.id, text: '✅ Заявка за вами!' });
             }
 
-            // ── Stage 1 → FINAL : Спам ──────────────────────────
             else if (action === 'spam') {
                 const updated = htmlNow
                     + `\n\n──────────────────────`
                     + `\n🗑 <b>СПАМ / ОШИБКА</b>`
                     + `\nМенеджер: ${esc(mgrTag)} (${time})`;
-
                 await tg('editMessageText', {
                     chat_id: chatId, message_id: msgId,
                     text: updated, parse_mode: 'HTML',
@@ -197,12 +243,10 @@ export default async function handler(req, res) {
                 await tg('answerCallbackQuery', { callback_query_id: cb.id, text: '🗑 Спам' });
             }
 
-            // ── Stage 2 → FINAL : Записан ───────────────────────
             else if (action === 'success') {
                 const updated = htmlNow
                     + `\n\n✅ <b>ЗАПИСАН</b>`
                     + `\nМенеджер: ${esc(mgrTag)} (${time})`;
-
                 await tg('editMessageText', {
                     chat_id: chatId, message_id: msgId,
                     text: updated, parse_mode: 'HTML',
@@ -211,7 +255,6 @@ export default async function handler(req, res) {
                 await tg('answerCallbackQuery', { callback_query_id: cb.id, text: '🏆 Клиент записан!' });
             }
 
-            // ── Stage 2 → Stage 3 : Показать причины ────────────
             else if (action === 'start_reject') {
                 await tg('editMessageReplyMarkup', {
                     chat_id: chatId, message_id: msgId,
@@ -220,7 +263,6 @@ export default async function handler(req, res) {
                 await tg('answerCallbackQuery', { callback_query_id: cb.id, text: 'Выберите причину:' });
             }
 
-            // ── Stage 3 → Stage 2 : Назад ───────────────────────
             else if (action === 'back_work') {
                 await tg('editMessageReplyMarkup', {
                     chat_id: chatId, message_id: msgId,
@@ -229,14 +271,12 @@ export default async function handler(req, res) {
                 await tg('answerCallbackQuery', { callback_query_id: cb.id });
             }
 
-            // ── Stage 3 → FINAL : Причина отказа ────────────────
             else if (action.startsWith('rej_')) {
                 const reason = REJECT_MAP[action] || action;
                 const updated = htmlNow
                     + `\n\n──────────────────────`
                     + `\n🚫 <b>ОТКЛОНЕНО:</b> ${reason}`
                     + `\nМенеджер: ${esc(mgrTag)} (${time})`;
-
                 await tg('editMessageText', {
                     chat_id: chatId, message_id: msgId,
                     text: updated, parse_mode: 'HTML',
@@ -245,7 +285,6 @@ export default async function handler(req, res) {
                 await tg('answerCallbackQuery', { callback_query_id: cb.id, text: `❌ ${reason}` });
             }
 
-            // ── Unknown → dismiss ───────────────────────────────
             else {
                 await tg('answerCallbackQuery', { callback_query_id: cb.id });
             }
@@ -258,8 +297,16 @@ export default async function handler(req, res) {
         // ═════════════════════════════════════════════════════════
         const { name, phone, car, service, quiz } = body;
 
-        if (!phone || !BOT_TOKEN || !CHAT_ID) {
-            return res.status(400).json({ error: 'Missing required fields or server config' });
+        // ─── LAYER 4: Payload validation ────────────────────────
+        if (!phone || typeof phone !== 'string' || phone.trim().length < 10) {
+            return res.status(400).json({ error: 'Invalid phone' });
+        }
+        if (!quiz && (!name || !car || typeof name !== 'string' || typeof car !== 'string')) {
+            return res.status(400).json({ error: 'Missing name or car' });
+        }
+
+        if (!BOT_TOKEN || !CHAT_ID) {
+            return res.status(500).json({ error: 'Server misconfiguration' });
         }
 
         const cleanPhone = phone.replace(/[^\d]/g, '');
@@ -280,9 +327,6 @@ export default async function handler(req, res) {
                 `🕐 <i>${now()}</i>`,
             ].join('\n');
         } else {
-            if (!name || !car) {
-                return res.status(400).json({ error: 'Missing name or car' });
-            }
             const svc = service ? `\n<b>🔧 Услуга:</b>  ${esc(service)}` : '';
             text = [
                 '<b>🔥 НОВАЯ ЗАЯВКА</b>', '',
@@ -304,14 +348,13 @@ export default async function handler(req, res) {
 
         if (!result.ok) {
             console.error('sendMessage error:', result);
-            return res.status(500).json({ error: 'Telegram API error', details: result });
+            return res.status(500).json({ error: 'Telegram API error' });
         }
 
         return res.status(200).json({ success: true });
 
     } catch (error) {
         console.error('Handler error:', error);
-        // Return 200 for webhook errors to prevent Telegram retry spam
         return res.status(200).json({ error: 'Internal error' });
     }
 }

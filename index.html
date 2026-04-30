@@ -1168,7 +1168,7 @@
                     <i class="fa-brands fa-tiktok text-lg"></i>
                     <span>TikTok</span>
                 </a>
-                <a href="https://wa.me/77718326125" target="_blank" class="social-btn flex items-center gap-3 bg-[#25D366]/10 hover:bg-[#25D366]/20 text-[#25D366] font-semibold text-sm px-6 py-3 rounded-full border border-[#25D366]/20">
+                <a href="https://wa.me/77785312300" target="_blank" class="social-btn flex items-center gap-3 bg-[#25D366]/10 hover:bg-[#25D366]/20 text-[#25D366] font-semibold text-sm px-6 py-3 rounded-full border border-[#25D366]/20">
                     <i class="fa-brands fa-whatsapp text-lg"></i>
                     <span>WhatsApp</span>
                 </a>
@@ -1229,7 +1229,7 @@
                     </li>
                     <li class="flex items-center gap-2 text-gray-500 text-sm">
                         <i class="fa-brands fa-whatsapp text-brand-red text-xs"></i>
-                        <a href="https://wa.me/77718326125" class="hover:text-brand-red transition">WhatsApp</a>
+                        <a href="https://wa.me/77785312300" class="hover:text-brand-red transition">WhatsApp</a>
                     </li>
                     <li class="flex items-center gap-2 text-gray-500 text-sm">
                         <i class="fa-brands fa-instagram text-brand-red text-xs"></i>
@@ -1351,7 +1351,10 @@
         try {
             const response = await fetch('/api/telegram', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-crm-secret': 'ВСТАВЬ_СЮДА_СВОЙ_API_SECRET'
+                },
                 body: JSON.stringify({
                     name: name,
                     phone: phone,
@@ -1675,7 +1678,10 @@
         try {
             const response = await fetch('/api/telegram', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-crm-secret': '71514acd6ee3bd2867d6757e1e06ee6cb659d600bbc696d7b175934a8002f2f3'
+                },
                 body: JSON.stringify({
                     phone: phone,
                     quiz: {
