@@ -365,16 +365,16 @@
                 <div class="w-8 h-8 md:w-10 md:h-10 bg-brand-red rounded-lg flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-300">
                     <span class="font-display font-black text-white text-sm md:text-base">P</span>
                 </div>
-                <div class="hidden sm:block">
-                    <span class="font-display font-bold text-white text-base md:text-lg tracking-wide">PREMIUM</span>
-                    <span class="font-display font-light text-gray-400 text-base md:text-lg tracking-widest ml-1">AUTO</span>
+                <div>
+                    <span class="font-display font-bold text-white text-sm md:text-lg tracking-wide">PREMIUM</span>
+                    <span class="font-display font-light text-gray-400 text-sm md:text-lg tracking-widest ml-0.5 sm:ml-1">AUTO</span>
                 </div>
             </a>
 
             <!-- Desktop Nav -->
             <nav class="hidden md:flex items-center gap-8">
-                <a href="#services" class="text-sm text-gray-300 hover:text-brand-red transition-colors duration-300 font-medium tracking-wide uppercase">Услуги</a>
-                <a href="#reviews" class="text-sm text-gray-300 hover:text-brand-red transition-colors duration-300 font-medium tracking-wide uppercase">Отзывы</a>
+                <a href="/index.html#services" class="text-sm text-gray-300 hover:text-brand-red transition-colors duration-300 font-medium tracking-wide uppercase">Услуги</a>
+                <a href="/index.html#reviews" class="text-sm text-gray-300 hover:text-brand-red transition-colors duration-300 font-medium tracking-wide uppercase">Отзывы</a>
                 <a href="#contacts" class="text-sm text-gray-300 hover:text-brand-red transition-colors duration-300 font-medium tracking-wide uppercase">Контакты</a>
                 <a href="#booking-form" class="cta-btn bg-brand-red hover:bg-brand-red-dark text-white text-sm font-semibold px-6 py-2.5 rounded-full transition-all duration-300 animate-pulse-glow">
                     Оставить заявку
@@ -391,8 +391,8 @@
     <!-- Mobile Nav -->
     <div id="mobile-menu" class="md:hidden hidden bg-dark-900/98 backdrop-blur-xl border-t border-dark-600">
         <div class="px-6 py-6 space-y-4">
-            <a href="#services" class="block text-gray-300 hover:text-brand-red transition font-medium py-2 mobile-link">Услуги</a>
-            <a href="#reviews" class="block text-gray-300 hover:text-brand-red transition font-medium py-2 mobile-link">Отзывы</a>
+            <a href="/index.html#services" class="block text-gray-300 hover:text-brand-red transition font-medium py-2 mobile-link">Услуги</a>
+            <a href="/index.html#reviews" class="block text-gray-300 hover:text-brand-red transition font-medium py-2 mobile-link">Отзывы</a>
             <a href="#contacts" class="block text-gray-300 hover:text-brand-red transition font-medium py-2 mobile-link">Контакты</a>
             <a href="#booking-form" class="cta-btn block text-center bg-brand-red hover:bg-brand-red-dark text-white font-semibold px-6 py-3 rounded-full transition-all mt-4 mobile-link">
                 Оставить заявку
@@ -521,6 +521,9 @@
                             name="name"
                             required
                             placeholder="Например, Арман"
+                            pattern="[^0-9]*"
+                            title="Имя не может содержать цифры"
+                            oninput="this.value = this.value.replace(/[0-9]/g, '')"
                             class="w-full bg-dark-700 border border-dark-500 rounded-xl px-5 py-3.5 text-white placeholder-dark-300 text-sm transition-all duration-300"
                         >
                     </div>
@@ -534,6 +537,9 @@
                             name="phone"
                             required
                             placeholder="+7 (7XX) XXX-XX-XX"
+                            pattern="[\+]?[0-9\s\(\)\-]{10,18}"
+                            title="Введите корректный номер телефона (минимум 10 цифр)"
+                            minlength="10"
                             class="w-full bg-dark-700 border border-dark-500 rounded-xl px-5 py-3.5 text-white placeholder-dark-300 text-sm transition-all duration-300"
                         >
                     </div>
@@ -710,8 +716,8 @@
             <div>
                 <h4 class="font-display font-bold text-white text-sm mb-4 uppercase tracking-wider">Навигация</h4>
                 <ul class="space-y-3">
-                    <li><a href="#services" class="text-gray-500 hover:text-brand-red text-sm transition">Услуги</a></li>
-                    <li><a href="#reviews" class="text-gray-500 hover:text-brand-red text-sm transition">Отзывы</a></li>
+                    <li><a href="/index.html#services" class="text-gray-500 hover:text-brand-red text-sm transition">Услуги</a></li>
+                    <li><a href="/index.html#reviews" class="text-gray-500 hover:text-brand-red text-sm transition">Отзывы</a></li>
                     <li><a href="#booking-form" class="text-gray-500 hover:text-brand-red text-sm transition">Запись</a></li>
                     <li><a href="#contacts" class="text-gray-500 hover:text-brand-red text-sm transition">Контакты</a></li>
                 </ul>
