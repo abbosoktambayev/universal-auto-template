@@ -6,6 +6,48 @@
     <title>Premium Auto — Премиум детейлинг в Астане | Рейтинг 5.0</title>
     <meta name="description" content="Premium Auto — студия премиум-детейлинга №1 в Астане. Керамика, PPF, полировка, химчистка. Рейтинг 5.0 ★ 284 отзыва. 3 филиала. Запишитесь на бесплатный осмотр.">
 
+    <!-- Open Graph / Social Sharing -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Premium Auto — Премиум детейлинг в Астане">
+    <meta property="og:description" content="Керамика, PPF, полировка, химчистка. Рейтинг 5.0 ★ 284 отзыва. 3 филиала в Астане.">
+    <meta property="og:image" content="./images/ceramic-coating.png">
+    <meta property="og:url" content="https://universal-auto-template.vercel.app">
+    <meta property="og:locale" content="ru_RU">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Premium Auto — Премиум детейлинг в Астане">
+    <meta name="twitter:description" content="Керамика, PPF, полировка, химчистка. Рейтинг 5.0 ★ 284 отзыва.">
+    <meta name="twitter:image" content="./images/ceramic-coating.png">
+
+    <!-- Schema.org / Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "AutoRepair",
+        "name": "Premium Auto Detailing",
+        "image": "./images/ceramic-coating.png",
+        "url": "https://universal-auto-template.vercel.app",
+        "telephone": "+77718326125",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "ул. Шамши Калдаякова, 58/2",
+            "addressLocality": "Астана",
+            "addressCountry": "KZ"
+        },
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "5.0",
+            "reviewCount": "284",
+            "bestRating": "5"
+        },
+        "openingHoursSpecification": {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+            "opens": "10:00",
+            "closes": "21:00"
+        },
+        "priceRange": "₸₸₸"
+    }
+    </script>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -154,6 +196,65 @@
             transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
         .toast.show { transform: translateX(0); }
+
+        /* Preloader */
+        .preloader {
+            position: fixed; inset: 0; z-index: 9999;
+            background: #0A0A0A;
+            display: flex; align-items: center; justify-content: center;
+            transition: opacity 0.5s, visibility 0.5s;
+        }
+        .preloader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+        .preloader-logo {
+            width: 60px; height: 60px; background: #E5142E; border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            animation: preloaderPulse 1s ease-in-out infinite;
+        }
+        @keyframes preloaderPulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(229,20,46,0.4); }
+            50% { transform: scale(1.1); box-shadow: 0 0 30px 10px rgba(229,20,46,0.2); }
+        }
+
+        /* FAQ Accordion */
+        .faq-item { border-bottom: 1px solid #2A2A2A; }
+        .faq-question {
+            cursor: pointer; padding: 20px 0; display: flex;
+            justify-content: space-between; align-items: center;
+            transition: color 0.3s;
+        }
+        .faq-question:hover { color: #E5142E; }
+        .faq-question i { transition: transform 0.3s; font-size: 14px; color: #E5142E; }
+        .faq-item.active .faq-question i { transform: rotate(180deg); }
+        .faq-answer {
+            max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.3s;
+        }
+        .faq-item.active .faq-answer { max-height: 300px; padding-bottom: 20px; }
+
+        /* Scroll-to-top */
+        .scroll-top-btn {
+            position: fixed; bottom: 90px; right: 20px; z-index: 45;
+            width: 44px; height: 44px; border-radius: 50%;
+            background: #1A1A1A; border: 1px solid #2A2A2A;
+            color: #E5142E; display: flex; align-items: center; justify-content: center;
+            cursor: pointer; opacity: 0; visibility: hidden;
+            transition: all 0.3s; font-size: 16px;
+        }
+        .scroll-top-btn.visible { opacity: 1; visibility: visible; }
+        .scroll-top-btn:hover { background: #E5142E; color: #fff; border-color: #E5142E; transform: translateY(-2px); }
+        @media (max-width: 767px) { .scroll-top-btn { bottom: 80px; right: 16px; } }
+
+        /* Floating WhatsApp */
+        .whatsapp-float {
+            position: fixed; bottom: 90px; left: 20px; z-index: 45;
+            width: 56px; height: 56px; border-radius: 50%;
+            background: #25D366; color: #fff;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 28px; cursor: pointer;
+            box-shadow: 0 4px 20px rgba(37,211,102,0.4);
+            transition: all 0.3s; text-decoration: none;
+        }
+        .whatsapp-float:hover { transform: scale(1.1); box-shadow: 0 6px 30px rgba(37,211,102,0.6); }
+        @media (max-width: 767px) { .whatsapp-float { bottom: 80px; left: 16px; width: 50px; height: 50px; font-size: 24px; } }
 
         /* CTA pulse */
         .cta-btn {
@@ -512,8 +613,25 @@
 </head>
 <body>
 
+<!-- Preloader -->
+<div class="preloader" id="preloader">
+    <div class="preloader-logo">
+        <span style="font-family:'Outfit',sans-serif;font-weight:900;color:#fff;font-size:24px;">P</span>
+    </div>
+</div>
+
 <!-- Noise overlay -->
 <div class="noise-overlay"></div>
+
+<!-- Floating WhatsApp Button -->
+<a href="https://wa.me/77718326125?text=Здравствуйте!%20Хочу%20записаться%20на%20детейлинг" target="_blank" class="whatsapp-float" aria-label="Написать в WhatsApp">
+    <i class="fa-brands fa-whatsapp"></i>
+</a>
+
+<!-- Scroll to Top -->
+<button class="scroll-top-btn" id="scrollTopBtn" aria-label="Наверх" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+    <i class="fa-solid fa-chevron-up"></i>
+</button>
 
 <!-- Toast Notification -->
 <div id="toast" class="toast fixed top-6 right-6 z-[100] max-w-sm">
@@ -660,7 +778,7 @@
             <!-- Card 1: Ceramic -->
             <a href="service.html?id=ceramic" class="glass-card rounded-2xl overflow-hidden group reveal block" style="transition-delay: 0.1s;">
                 <div class="service-img-wrapper h-48 relative">
-                    <img src="images/ceramic-coating.png" alt="Керамическое покрытие" class="w-full h-full object-cover">
+                    <img src="images/ceramic-coating.png" alt="Керамическое покрытие" class="w-full h-full object-cover" loading="lazy">
                     <div class="absolute top-4 right-4 z-10 bg-brand-red/90 backdrop-blur-sm text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full">
                         Хит
                     </div>
@@ -683,7 +801,7 @@
             <!-- Card 2: Chemical cleaning -->
             <a href="service.html?id=cleaning" class="glass-card rounded-2xl overflow-hidden group reveal block" style="transition-delay: 0.2s;">
                 <div class="service-img-wrapper h-48 relative">
-                    <img src="./images/chistka.png" alt="Премиум-химчистка" class="w-full h-full object-cover">
+                    <img src="./images/chistka.png" alt="Премиум-химчистка" class="w-full h-full object-cover" loading="lazy">
                     <div class="absolute top-4 right-4 z-10 bg-white/10 backdrop-blur-sm text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full">
                         Детейлинг
                     </div>
@@ -706,7 +824,7 @@
             <!-- Card 3: Polishing -->
             <a href="service.html?id=polish" class="glass-card rounded-2xl overflow-hidden group reveal block" style="transition-delay: 0.3s;">
                 <div class="service-img-wrapper h-48 relative">
-                    <img src="./images/polirovka.png" alt="Полировка кузова" class="w-full h-full object-cover">
+                    <img src="./images/polirovka.png" alt="Полировка кузова" class="w-full h-full object-cover" loading="lazy">
                     <div class="absolute top-4 right-4 z-10 bg-white/10 backdrop-blur-sm text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full">
                         Блеск
                     </div>
@@ -729,7 +847,7 @@
             <!-- Card 4: PPF -->
             <a href="service.html?id=ppf" class="glass-card rounded-2xl overflow-hidden group reveal block" style="transition-delay: 0.4s;">
                 <div class="service-img-wrapper h-48 relative">
-                    <img src="images/ppf-service.png" alt="Оклейка пленкой PPF" class="w-full h-full object-cover">
+                    <img src="images/ppf-service.png" alt="Оклейка пленкой PPF" class="w-full h-full object-cover" loading="lazy">
                     <div class="absolute top-4 right-4 z-10 bg-white/10 backdrop-blur-sm text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full">
                         Премиум
                     </div>
@@ -1087,9 +1205,88 @@
                     </button>
 
                     <p class="text-gray-600 text-xs text-center mt-4">
-                        Нажимая кнопку, вы соглашаетесь с обработкой персональных данных
+                        Нажимая кнопку, вы соглашаетесь с <a href="#privacy" class="text-brand-red hover:underline">политикой конфиденциальности</a>
                     </p>
                 </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ==================== FAQ ==================== -->
+<section id="faq" class="relative py-20 md:py-32 bg-dark-900">
+    <div class="red-line mb-20"></div>
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16 reveal">
+            <span class="text-brand-red font-display font-semibold text-sm tracking-[0.3em] uppercase mb-4 block">Вопросы</span>
+            <h2 class="font-display font-black text-3xl sm:text-4xl md:text-5xl text-white mb-4">
+                Частые <span class="shimmer-text">вопросы</span>
+            </h2>
+            <p class="text-gray-500 text-base md:text-lg max-w-xl mx-auto font-light">
+                Не нашли ответ? Напишите нам в WhatsApp — ответим за 5 минут.
+            </p>
+        </div>
+
+        <div class="reveal">
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span class="font-display font-semibold text-white text-base">Сколько времени занимает керамическое покрытие?</span>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer text-gray-400 text-sm leading-relaxed">
+                    Нанесение керамики занимает от 1 до 3 дней в зависимости от состояния авто и количества слоёв. Мы не торопимся — каждый этап выполняется по технологии производителя.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span class="font-display font-semibold text-white text-base">Можно ли мыть авто после керамики?</span>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer text-gray-400 text-sm leading-relaxed">
+                    Да, но первые 7 дней рекомендуем избегать мойки. После — обычная бесконтактная мойка. Покрытие защищает от царапин, реагентов и ультрафиолета до 5 лет.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span class="font-display font-semibold text-white text-base">Сколько стоит полная химчистка салона?</span>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer text-gray-400 text-sm leading-relaxed">
+                    Стоимость зависит от класса авто и степени загрязнения. Начинается от 45 000 ₸ для седана. Воспользуйтесь нашим калькулятором для точного расчёта.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span class="font-display font-semibold text-white text-base">Какие плёнки PPF вы используете?</span>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer text-gray-400 text-sm leading-relaxed">
+                    Мы работаем только с премиальными брендами: STEK, LLumar, SunTek. Все плёнки имеют гарантию производителя от 5 до 10 лет. Самовосстанавливающийся слой от мелких царапин.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span class="font-display font-semibold text-white text-base">Вы работаете с новыми авто из салона?</span>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer text-gray-400 text-sm leading-relaxed">
+                    Да, и это идеальное время! Новый автомобиль лучше защитить керамикой или PPF-плёнкой сразу — до первых дорожных повреждений. Мы принимаем авто прямо из салона.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span class="font-display font-semibold text-white text-base">Как записаться и есть ли очередь?</span>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer text-gray-400 text-sm leading-relaxed">
+                    Оставьте заявку на сайте или напишите в WhatsApp. Мы перезвоним в течение 15 минут и подберём удобное время. В сезон лучше бронировать за 2–3 дня.
+                </div>
             </div>
         </div>
     </div>
@@ -1277,10 +1474,14 @@
             <p class="text-gray-600 text-xs">
                 &copy; 2026 Premium Auto. Все права защищены.
             </p>
-            <div class="flex items-center gap-2 text-gray-600 text-xs">
-                <span>Разработано с</span>
-                <i class="fa-solid fa-heart text-brand-red text-[10px]"></i>
-                <span>для #1 детейлинг-студии Астаны</span>
+            <div class="flex items-center gap-4 text-gray-600 text-xs">
+                <a href="#privacy" class="hover:text-brand-red transition">Политика конфиденциальности</a>
+                <span>·</span>
+                <div class="flex items-center gap-2">
+                    <span>Разработано с</span>
+                    <i class="fa-solid fa-heart text-brand-red text-[10px]"></i>
+                    <span>для #1 детейлинг-студии Астаны</span>
+                </div>
             </div>
         </div>
     </div>
@@ -1299,6 +1500,56 @@
 <!-- ==================== JAVASCRIPT ==================== -->
 <!-- Tokens are stored securely on the server (process.env) -->
 <script>
+    // ===== Preloader =====
+    window.addEventListener('load', () => {
+        const preloader = document.getElementById('preloader');
+        if (preloader) {
+            setTimeout(() => preloader.classList.add('hidden'), 600);
+            setTimeout(() => preloader.remove(), 1100);
+        }
+    });
+
+    // ===== Scroll-to-top button =====
+    const scrollTopBtn = document.getElementById('scrollTopBtn');
+    window.addEventListener('scroll', () => {
+        if (scrollTopBtn) {
+            scrollTopBtn.classList.toggle('visible', window.scrollY > 600);
+        }
+    });
+
+    // ===== FAQ Accordion =====
+    function toggleFaq(el) {
+        const item = el.parentElement;
+        const wasActive = item.classList.contains('active');
+        // Close all
+        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+        // Toggle current
+        if (!wasActive) item.classList.add('active');
+    }
+
+    // ===== Phone auto-format: +7 (7XX) XXX-XX-XX =====
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('input[type="tel"]').forEach(input => {
+            input.addEventListener('input', function(e) {
+                let val = this.value.replace(/\D/g, '');
+                if (val.startsWith('8')) val = '7' + val.slice(1);
+                if (val.startsWith('7')) {
+                    let f = '+7';
+                    if (val.length > 1) f += ' (' + val.substring(1, 4);
+                    if (val.length >= 4) f += ') ' + val.substring(4, 7);
+                    if (val.length >= 7) f += '-' + val.substring(7, 9);
+                    if (val.length >= 9) f += '-' + val.substring(9, 11);
+                    this.value = f;
+                } else if (val.length > 0) {
+                    this.value = '+' + val;
+                }
+            });
+            // Set initial +7 when focused on empty field
+            input.addEventListener('focus', function() {
+                if (!this.value) this.value = '+7';
+            });
+        });
+    });
     // ===== Scroll position restore (from service.html back-navigation) =====
     (function() {
         const savedPos = sessionStorage.getItem('scrollPos');
